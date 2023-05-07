@@ -2,6 +2,7 @@ package com.menumer.service;
 
 import com.menumer.model.IngredientDetails;
 import com.menumer.model.Recipe;
+import com.menumer.model.RecipeView;
 import com.menumer.model.User;
 import com.menumer.model.UserProfile;
 import com.menumer.model.enums.Action;
@@ -30,12 +31,26 @@ public class RecipeService {
 
     public Set<Recipe> getUserRecipes(String userId) {
         Optional<User> userOptional = userRepository.findById(userId);
+
         if (userOptional.isEmpty()) {
             log.info("User with id {} does not exist", userId);
             return null;
         }
         User user = userOptional.get();
         return user.getCreatedRecipes();
+    }
+
+    public Recipe getRecipe (String recipeId) {
+        Optional<Recipe> recipeOptional = recipeRepository.findById(recipeId);
+//        RecipeView recipeView = RecipeView.builder()
+//                .recipe(recipeId)
+//                .
+//                .build();
+        if (recipeOptional.isEmpty()) {
+            log.info("Recipe with id {} does not exist", recipeId);
+            return null;
+        }
+        return recipeOptional.get();
     }
 
     public Recipe createRecipe(RecipeRequest recipeRequest) {
