@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
@@ -26,9 +27,12 @@ public class Recipe {
     @JsonBackReference
     @DocumentReference
     private User user;
+    @TextIndexed
     private String recipeName;
+    @TextIndexed
     @DocumentReference
     private List<IngredientDetails> ingredientDetails;
+    @TextIndexed
     private String description;
     private Integer rating;
     private Integer numberOfLikes;

@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -171,5 +172,11 @@ public class RecipeService {
         updatedRecipes.remove(recipe);
         user.setCreatedRecipes(updatedRecipes);
         userRepository.save(user);
+    }
+
+    public List<Recipe> getSearchedRecipe(String searchValue){
+        TextCriteria criteria = TextCriteria.forDefaultLanguage().matching(searchValue);
+        List<Recipe> results = RecipeRepository.findBy(criteria);
+        return results;
     }
 }

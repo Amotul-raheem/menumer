@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -75,6 +76,11 @@ public class RecipeController {
                                                   required = true ) String userId){
         recipeService.deleteRecipe(recipeId, userId);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/recipe/search")
+    public List<Recipe> getSearchedRecipe(@RequestParam(name = "searchValue", required = true) String searchValue ){
+        return recipeService.getSearchedRecipe(searchValue);
     }
 
 }
